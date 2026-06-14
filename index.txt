@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NayePankh Foundation – Giving Wings to Dreams</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────── */
+    :root {
+      --sky:      #1D6FA4;
+      --sky-mid:  #2E9CCA;
+      --saffron:  #F5A623;
+      --leaf:     #2DB07C;
+      --cream:    #FDF8F0;
+      --ink:      #1A1A2E;
+      --muted:    #6B7280;
+      --border:   rgba(0,0,0,.08);
+
+      --bg:       var(--cream);
+      --surface:  #FFFFFF;
+      --text:     var(--ink);
+      --text2:    var(--muted);
+      --card-bg:  #FFFFFF;
+      --nav-bg:   rgba(253,248,240,.85);
+      --hero-overlay: rgba(10,30,60,.45);
+
+      --r: .75rem;
+      --shadow: 0 4px 24px rgba(0,0,0,.09);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,.14);
+    }
+    [data-theme="dark"] {
+      --bg:       #0E1520;
+      --surface:  #162031;
+      --text:     #EEF2FF;
+      --text2:    #94A3B8;
+      --card-bg:  #1C2B40;
+      --border:   rgba(255,255,255,.07);
+      --nav-bg:   rgba(14,21,32,.88);
+      --shadow:   0 4px 24px rgba(0,0,0,.35);
+      --shadow-lg:0 12px 48px rgba(0,0,0,.5);
+    }
+
+    /* ── RESET ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .35s, color .35s;
+      line-height: 1.65;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── UTILITY ─────────────────────────────────── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+    .tag {
+      display: inline-block;
+      font-size: .7rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase;
+      background: rgba(245,166,35,.18); color: var(--saffron);
+      padding: .25rem .75rem; border-radius: 2rem;
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      color: var(--text);
+    }
+    .section-sub {
+      color: var(--text2); font-size: 1.05rem;
+      max-width: 560px; margin-top: .6rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .75rem 1.75rem; border-radius: 3rem;
+      font-size: .9rem; font-weight: 600; cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-primary { background: var(--saffron); color: #1A1A2E; }
+    .btn-outline { background: transparent; border-color: #fff; color: #fff; }
+    .btn-outline:hover { background: rgba(255,255,255,.12); }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: background .35s;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: .6rem;
+      font-family: 'Playfair Display', serif; font-size: 1.2rem;
+      font-weight: 900; color: var(--sky);
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--sky), var(--sky-mid));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .875rem; font-weight: 500; color: var(--text2);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--sky); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    #themeBtn {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface); cursor: pointer;
+      font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+      transition: background .35s, border .35s;
+    }
+    #themeBtn:hover { background: var(--bg); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      width: 22px; height: 2px; background: var(--text);
+      border-radius: 2px; transition: transform .3s, opacity .3s;
+    }
+    .mobile-menu {
+      display: none; flex-direction: column; gap: 1.2rem;
+      padding: 1.2rem 1.5rem 1.4rem;
+      border-top: 1px solid var(--border);
+      background: var(--nav-bg); backdrop-filter: blur(14px);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: .95rem; font-weight: 500; color: var(--text2);
+    }
+
+    /* ── HERO ────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #0B2C4A 0%, #1D6FA4 50%, #2DB07C 100%);
+      overflow: hidden;
+    }
+    .hero-particles {
+      position: absolute; inset: 0; overflow: hidden;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: .18;
+      animation: float linear infinite;
+    }
+    @keyframes float {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: .18; }
+      90%  { opacity: .18; }
+      100% { transform: translateY(-120px) rotate(360deg); opacity: 0; }
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: var(--hero-overlay);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 680px;
+    }
+    .hero-eyebrow {
+      font-family: 'Caveat', cursive; font-size: 1.35rem;
+      color: var(--saffron); margin-bottom: .4rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900; line-height: 1.1; color: #fff;
+      margin-bottom: 1.2rem;
+    }
+    .hero-title span { color: var(--saffron); }
+    .hero-sub {
+      color: rgba(255,255,255,.78); font-size: 1.1rem;
+      margin-bottom: 2rem; max-width: 520px;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-stat-row {
+      display: flex; gap: 2.5rem; margin-top: 3rem; flex-wrap: wrap;
+    }
+    .hero-stat strong {
+      display: block; font-size: 2rem; font-weight: 700;
+      color: #fff; font-family: 'Playfair Display', serif;
+    }
+    .hero-stat span {
+      font-size: .8rem; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+    }
+    .hero-wing {
+      position: absolute; right: -40px; bottom: 0;
+      width: clamp(280px, 40vw, 540px); opacity: .12;
+      pointer-events: none;
+    }
+
+    /* ── ANIMATE ON SCROLL ──────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── ABOUT ──────────────────────────────────── */
+    #about { padding: 6rem 0; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative; border-radius: 1.25rem; overflow: hidden;
+    }
+    .about-image-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--sky) 0%, var(--leaf) 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1rem; color: #fff; font-size: .95rem; font-weight: 500;
+      border-radius: 1.25rem;
+    }
+    .about-image-placeholder span { font-size: 4rem; }
+    .about-badge {
+      position: absolute; bottom: -1rem; right: -1rem;
+      background: var(--saffron); border-radius: 1rem;
+      padding: 1rem 1.25rem; text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .about-badge strong {
+      display: block; font-size: 2rem; font-weight: 900;
+      font-family: 'Playfair Display', serif; color: var(--ink);
+    }
+    .about-badge small { font-size: .75rem; color: var(--ink); opacity: .75; }
+    .pillars { display: flex; flex-direction: column; gap: .75rem; margin-top: 1.5rem; }
+    .pillar {
+      display: flex; align-items: flex-start; gap: .85rem;
+      padding: .85rem 1rem;
+      background: var(--card-bg); border-radius: var(--r);
+      border: 1px solid var(--border);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .pillar:hover { transform: translateX(4px); box-shadow: var(--shadow); }
+    .pillar-icon {
+      width: 36px; height: 36px; border-radius: .5rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .pillar-text strong { font-size: .9rem; display: block; margin-bottom: .2rem; }
+    .pillar-text p { font-size: .8rem; color: var(--text2); }
+
+    /* ── IMPACT ─────────────────────────────────── */
+    #impact {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, var(--sky) 0%, #0B3D6B 100%);
+      position: relative; overflow: hidden;
+    }
+    #impact::before {
+      content: '';
+      position: absolute; top: -60%; left: -20%;
+      width: 140%; height: 200%;
+      background: radial-gradient(circle at 70% 50%, rgba(45,176,124,.25) 0%, transparent 60%);
+    }
+    .impact-header { text-align: center; margin-bottom: 3.5rem; }
+    .impact-header .tag { background: rgba(255,255,255,.15); color: rgba(255,255,255,.85); }
+    .impact-header .section-title { color: #fff; }
+    .impact-header .section-sub { color: rgba(255,255,255,.65); margin: .6rem auto 0; }
+    .impact-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 1.5rem;
+    }
+    .impact-card {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 1rem; padding: 2rem 1.5rem; text-align: center;
+      backdrop-filter: blur(8px);
+      transition: transform .25s, background .25s;
+    }
+    .impact-card:hover { transform: translateY(-6px); background: rgba(255,255,255,.18); }
+    .impact-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 900; color: var(--saffron);
+      line-height: 1;
+    }
+    .impact-label {
+      font-size: .85rem; font-weight: 500; color: rgba(255,255,255,.75);
+      margin-top: .5rem; text-transform: uppercase; letter-spacing: .08em;
+    }
+    .impact-icon { font-size: 2rem; margin-bottom: .75rem; }
+
+    /* ── PROGRAMS ─────────────────────────────────── */
+    #programs { padding: 6rem 0; }
+    .programs-header { margin-bottom: 3rem; }
+    .programs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 1.5rem;
+    }
+    .program-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem; overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+      cursor: default;
+    }
+    .program-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .program-thumb {
+      height: 180px; display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; position: relative; overflow: hidden;
+    }
+    .program-body { padding: 1.5rem; }
+    .program-body h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.2rem;
+      margin-bottom: .5rem; color: var(--text);
+    }
+    .program-body p { font-size: .875rem; color: var(--text2); line-height: 1.6; }
+    .program-link {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .82rem; font-weight: 600; color: var(--sky); margin-top: 1rem;
+      transition: gap .2s;
+    }
+    .program-link:hover { gap: .6rem; }
+
+    /* ── VOLUNTEER ──────────────────────────────── */
+    #volunteer {
+      padding: 6rem 0;
+      background: var(--card-bg);
+    }
+    .vol-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center;
+    }
+    .vol-steps { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+    .vol-step { display: flex; align-items: flex-start; gap: 1rem; }
+    .step-num {
+      flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--sky), var(--sky-mid));
+      color: #fff; font-weight: 700; font-size: .9rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(29,111,164,.35);
+    }
+    .vol-step h4 { font-size: .95rem; font-weight: 600; margin-bottom: .25rem; }
+    .vol-step p { font-size: .83rem; color: var(--text2); }
+    .vol-form-card {
+      background: var(--surface); border-radius: 1.25rem;
+      padding: 2rem; border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .vol-form-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-field { margin-bottom: 1rem; }
+    .form-field label {
+      display: block; font-size: .8rem; font-weight: 600;
+      color: var(--text2); margin-bottom: .35rem; letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%; padding: .7rem 1rem;
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: .6rem; color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: .9rem;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: var(--sky);
+      box-shadow: 0 0 0 3px rgba(29,111,164,.15);
+    }
+    .form-field textarea { resize: vertical; min-height: 90px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ── TESTIMONIALS ───────────────────────────── */
+    #stories { padding: 6rem 0; }
+    .stories-header { text-align: center; margin-bottom: 3rem; }
+    .stories-header .section-sub { margin: .6rem auto 0; }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .testi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem; padding: 1.75rem;
+      transition: transform .25s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .testi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .testi-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; line-height: 1; color: var(--sky);
+      opacity: .25; position: absolute; top: .5rem; right: 1rem;
+    }
+    .testi-text {
+      font-size: .9rem; line-height: 1.7; color: var(--text2);
+      margin-bottom: 1.25rem; position: relative; z-index: 1;
+    }
+    .testi-author { display: flex; align-items: center; gap: .85rem; }
+    .testi-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .testi-name { font-size: .88rem; font-weight: 600; }
+    .testi-role { font-size: .75rem; color: var(--text2); }
+
+    /* ── DONATE ─────────────────────────────────── */
+    #donate {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, var(--leaf) 0%, #16855C 100%);
+      position: relative; overflow: hidden;
+    }
+    #donate::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(255,255,255,.08) 0%, transparent 60%);
+    }
+    .donate-inner {
+      position: relative; z-index: 1;
+      max-width: 700px; margin: 0 auto; text-align: center;
+    }
+    .donate-inner .tag { background: rgba(255,255,255,.2); color: rgba(255,255,255,.9); }
+    .donate-inner .section-title { color: #fff; }
+    .donate-inner p { color: rgba(255,255,255,.75); margin: 1rem 0 2rem; font-size: 1.05rem; }
+    .donate-amounts {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .amt-btn {
+      padding: .65rem 1.6rem; border-radius: 3rem;
+      background: rgba(255,255,255,.15); color: #fff;
+      border: 1.5px solid rgba(255,255,255,.3); font-weight: 600;
+      cursor: pointer; transition: background .2s, transform .2s;
+    }
+    .amt-btn:hover, .amt-btn.active {
+      background: rgba(255,255,255,.9); color: var(--leaf); transform: scale(1.05);
+    }
+    .donate-cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-donate {
+      background: #fff; color: var(--leaf); font-weight: 700;
+      padding: .85rem 2.5rem; border-radius: 3rem; cursor: pointer;
+      border: none; font-size: 1rem; font-family: 'Inter', sans-serif;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-donate:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+
+    /* ── CONTACT ────────────────────────────────── */
+    #contact { padding: 6rem 0; }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;
+      align-items: start;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem;
+      margin-bottom: .75rem;
+    }
+    .contact-info p { color: var(--text2); font-size: .9rem; margin-bottom: 2rem; }
+    .contact-items { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: .85rem; }
+    .contact-icon {
+      width: 40px; height: 40px; border-radius: .65rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .contact-item h4 { font-size: .85rem; font-weight: 600; }
+    .contact-item p { font-size: .8rem; color: var(--text2); margin: 0; }
+    .contact-form {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 1.25rem; padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+    .contact-form h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 1.5rem;
+    }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,.6);
+      padding: 4rem 0 2rem;
+    }
+    [data-theme="dark"] footer { background: #070D14; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2.5rem; margin-bottom: 3rem;
+    }
+    .footer-brand .logo { margin-bottom: 1rem; }
+    .footer-brand p { font-size: .85rem; line-height: 1.7; max-width: 260px; }
+    .footer-col h4 {
+      font-size: .8rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: rgba(255,255,255,.85);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .footer-col ul a { font-size: .85rem; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--saffron); }
+    .footer-social { display: flex; gap: .75rem; margin-top: 1.25rem; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.1); display: flex;
+      align-items: center; justify-content: center; font-size: .95rem;
+      transition: background .2s, transform .2s; cursor: pointer;
+    }
+    .social-btn:hover { background: var(--sky); transform: translateY(-3px); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .8rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom a { color: var(--saffron); }
+
+    /* ── BACK TO TOP ─────────────────────────────── */
+    #backTop {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--sky); color: #fff; border: none;
+      font-size: 1.2rem; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(29,111,164,.4);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s, transform .3s;
+    }
+    #backTop.show { opacity: 1; pointer-events: all; }
+    #backTop:hover { transform: translateY(-3px); }
+
+    /* ── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .vol-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-stat-row { gap: 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-cta { flex-direction: column; }
+      .donate-amounts { gap: .6rem; }
+    }
+
+    /* ── REDUCED MOTION ─────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .particle { display: none; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🪶</div>
+      NayePankh
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#stories">Stories</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button id="themeBtn" aria-label="Toggle dark mode">🌙</button>
+      <a href="#donate" class="btn btn-primary" style="padding:.55rem 1.25rem;font-size:.82rem;">Donate</a>
+      <div class="hamburger" id="hamburger" aria-label="Open menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#impact">Impact</a>
+    <a href="#programs">Programs</a>
+    <a href="#volunteer">Volunteer</a>
+    <a href="#stories">Stories</a>
+    <a href="#donate">Donate</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-particles" id="particles"></div>
+  <div class="container hero-content">
+    <p class="hero-eyebrow">✦ NayePankh Foundation</p>
+    <h1 class="hero-title">
+      Giving <span>Wings</span><br/>to Every Dream
+    </h1>
+    <p class="hero-sub">
+      We believe every child deserves a chance to soar. Through education, skill development, and community empowerment we transform lives across India.
+    </p>
+    <div class="hero-cta">
+      <a href="#programs" class="btn btn-primary">Explore Our Work →</a>
+      <a href="#donate" class="btn btn-outline">Donate Now 💛</a>
+    </div>
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <strong>12,000+</strong>
+        <span>Lives Touched</span>
+      </div>
+      <div class="hero-stat">
+        <strong>47</strong>
+        <span>Districts</span>
+      </div>
+      <div class="hero-stat">
+        <strong>8+</strong>
+        <span>Years Active</span>
+      </div>
+      <div class="hero-stat">
+        <strong>350+</strong>
+        <span>Volunteers</span>
+      </div>
+    </div>
+  </div>
+  <!-- Decorative wing SVG -->
+  <svg class="hero-wing" viewBox="0 0 400 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M380 180 Q200 0 20 80 Q100 180 200 200 Q300 220 380 180Z" fill="white"/>
+    <path d="M380 200 Q180 100 10 200 Q120 260 230 250 Q330 240 380 200Z" fill="white" opacity=".5"/>
+  </svg>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="about-image-wrap">
+          <div class="about-image-placeholder">
+            <span>🌱</span>
+            Nurturing the next generation
+          </div>
+          <div class="about-badge">
+            <strong>2016</strong>
+            <small>Founded</small>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.15s">
+        <span class="tag">Our Mission</span>
+        <h2 class="section-title">Empowering communities, one life at a time</h2>
+        <p class="section-sub">
+          NayePankh Foundation is a non-profit organisation working to uplift underprivileged children and youth through holistic development programmes rooted in dignity and compassion.
+        </p>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-icon" style="background:rgba(29,111,164,.12)">📚</div>
+            <div class="pillar-text">
+              <strong>Education Access</strong>
+              <p>Free tutoring, scholarships, and digital literacy for children in remote areas.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon" style="background:rgba(45,176,124,.12)">🛠️</div>
+            <div class="pillar-text">
+              <strong>Skill Development</strong>
+              <p>Vocational training and mentorship that opens doors to sustainable livelihoods.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon" style="background:rgba(245,166,35,.12)">❤️</div>
+            <div class="pillar-text">
+              <strong>Community Welfare</strong>
+              <p>Healthcare drives, hygiene camps, and emotional well-being support programmes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="container">
+    <div class="impact-header reveal">
+      <span class="tag">Our Impact</span>
+      <h2 class="section-title">Numbers that speak for themselves</h2>
+      <p class="section-sub">Every figure here is a real person whose life has changed.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card reveal">
+        <div class="impact-icon">👧</div>
+        <div class="impact-num">4,200+</div>
+        <div class="impact-label">Children Educated</div>
+      </div>
+      <div class="impact-card reveal" style="transition-delay:.1s">
+        <div class="impact-icon">🎓</div>
+        <div class="impact-num">1,800+</div>
+        <div class="impact-label">Scholarships Awarded</div>
+      </div>
+      <div class="impact-card reveal" style="transition-delay:.2s">
+        <div class="impact-icon">💼</div>
+        <div class="impact-num">950+</div>
+        <div class="impact-label">Youth Employed</div>
+      </div>
+      <div class="impact-card reveal" style="transition-delay:.3s">
+        <div class="impact-icon">🏥</div>
+        <div class="impact-num">6,000+</div>
+        <div class="impact-label">Health Check-ups</div>
+      </div>
+      <div class="impact-card reveal" style="transition-delay:.4s">
+        <div class="impact-icon">🌳</div>
+        <div class="impact-num">20,000+</div>
+        <div class="impact-label">Trees Planted</div>
+      </div>
+      <div class="impact-card reveal" style="transition-delay:.5s">
+        <div class="impact-icon">🏘️</div>
+        <div class="impact-num">120+</div>
+        <div class="impact-label">Villages Reached</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="container">
+    <div class="programs-header reveal">
+      <span class="tag">What We Do</span>
+      <h2 class="section-title">Our programmes</h2>
+      <p class="section-sub">Each initiative is designed to address a root cause — not just a symptom.</p>
+    </div>
+    <div class="programs-grid">
+      <div class="program-card reveal">
+        <div class="program-thumb" style="background:linear-gradient(135deg,#1D6FA4,#2E9CCA)">📖</div>
+        <div class="program-body">
+          <h3>Shiksha Daan</h3>
+          <p>Free educational support, study materials, and digital access for children from marginalised backgrounds in rural India.</p>
+          <a href="#" class="program-link">Learn more →</a>
+        </div>
+      </div>
+      <div class="program-card reveal" style="transition-delay:.1s">
+        <div class="program-thumb" style="background:linear-gradient(135deg,#2DB07C,#1A8C5E)">🛠️</div>
+        <div class="program-body">
+          <h3>HunarGhar</h3>
+          <p>Skill training centres offering courses in tailoring, computers, and commerce to empower youth with employable skills.</p>
+          <a href="#" class="program-link">Learn more →</a>
+        </div>
+      </div>
+      <div class="program-card reveal" style="transition-delay:.2s">
+        <div class="program-thumb" style="background:linear-gradient(135deg,#F5A623,#E08500)">🩺</div>
+        <div class="program-body">
+          <h3>Swasth Bharat</h3>
+          <p>Mobile health camps, nutrition programmes, and mental wellness workshops that reach the last mile.</p>
+          <a href="#" class="program-link">Learn more →</a>
+        </div>
+      </div>
+      <div class="program-card reveal" style="transition-delay:.3s">
+        <div class="program-thumb" style="background:linear-gradient(135deg,#9B59B6,#6C3483)">🌿</div>
+        <div class="program-body">
+          <h3>HaritBhumi</h3>
+          <p>Environmental awareness drives, plantation campaigns, and zero-waste workshops nurturing eco-conscious communities.</p>
+          <a href="#" class="program-link">Learn more →</a>
+        </div>
+      </div>
+      <div class="program-card reveal" style="transition-delay:.4s">
+        <div class="program-thumb" style="background:linear-gradient(135deg,#E74C3C,#C0392B)">👩</div>
+        <div class="program-body">
+          <h3>Shakti Setu</h3>
+          <p>Women empowerment programme offering leadership training, self-defence, and financial literacy workshops.</p>
+          <a href="#" class="program-link">Learn more →</a>
+        </div>
+      </div>
+      <div class="program-card reveal" style="transition-delay:.5s">
+        <div class="program-thumb" style="background:linear-gradient(135deg,#1ABC9C,#148F77)">🎨</div>
+        <div class="program-body">
+          <h3>UdanArts</h3>
+          <p>Creative arts and sports initiatives that nurture talent and give children a safe, joyful space to express themselves.</p>
+          <a href="#" class="program-link">Learn more →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOLUNTEER -->
+<section id="volunteer">
+  <div class="container">
+    <div class="vol-grid">
+      <div class="reveal">
+        <span class="tag">Join Us</span>
+        <h2 class="section-title">Become a volunteer</h2>
+        <p class="section-sub">Your time and talent can change a life. Here's how to get started:</p>
+        <div class="vol-steps">
+          <div class="vol-step">
+            <div class="step-num">01</div>
+            <div>
+              <h4>Fill the form</h4>
+              <p>Tell us your skills, availability, and the cause closest to your heart.</p>
+            </div>
+          </div>
+          <div class="vol-step">
+            <div class="step-num">02</div>
+            <div>
+              <h4>Orientation session</h4>
+              <p>Join a brief online or in-person session to understand our values and workflow.</p>
+            </div>
+          </div>
+          <div class="vol-step">
+            <div class="step-num">03</div>
+            <div>
+              <h4>Start making impact</h4>
+              <p>Get matched with a programme team and begin contributing from day one.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="vol-form-card">
+          <h3>Volunteer Sign-Up</h3>
+          <div class="form-row">
+            <div class="form-field">
+              <label>First Name</label>
+              <input type="text" placeholder="Riya" />
+            </div>
+            <div class="form-field">
+              <label>Last Name</label>
+              <input type="text" placeholder="Sharma" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Email Address</label>
+            <input type="email" placeholder="riya@email.com" />
+          </div>
+          <div class="form-field">
+            <label>Phone</label>
+            <input type="tel" placeholder="+91 98765 43210" />
+          </div>
+          <div class="form-field">
+            <label>Area of Interest</label>
+            <select>
+              <option value="">Select a programme…</option>
+              <option>Education – Shiksha Daan</option>
+              <option>Skills – HunarGhar</option>
+              <option>Health – Swasth Bharat</option>
+              <option>Environment – HaritBhumi</option>
+              <option>Women – Shakti Setu</option>
+              <option>Arts & Sports – UdanArts</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Message (optional)</label>
+            <textarea placeholder="Tell us a bit about yourself…"></textarea>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:.95rem;" onclick="handleVolunteer(event)">
+            Submit Application ✦
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section id="stories">
+  <div class="container">
+    <div class="stories-header reveal">
+      <span class="tag">Real Voices</span>
+      <h2 class="section-title">Stories of change</h2>
+      <p class="section-sub">Words from the people whose lives have been touched by NayePankh.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">
+          NayePankh's scholarship let me complete my 12th grade when my family could no longer afford it. Today I work in a city firm and send money home. This foundation gave me my wings.
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#1D6FA4,#2E9CCA)">A</div>
+          <div>
+            <div class="testi-name">Aakash Verma</div>
+            <div class="testi-role">Beneficiary → IT Professional, Pune</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.1s">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">
+          The HunarGhar sewing course changed everything for me. I now run a small tailoring unit and employ four women from my village. I never imagined this was possible.
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#2DB07C,#1A8C5E)">S</div>
+          <div>
+            <div class="testi-name">Sunita Devi</div>
+            <div class="testi-role">Programme Alumna, Rajasthan</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.2s">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">
+          Volunteering with NayePankh for two summers reshaped how I see the world. The team is passionate, the impact is real, and the gratitude from the children is something you carry forever.
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#9B59B6,#6C3483)">P</div>
+          <div>
+            <div class="testi-name">Priya Agarwal</div>
+            <div class="testi-role">Volunteer, Delhi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE -->
+<section id="donate">
+  <div class="container">
+    <div class="donate-inner">
+      <span class="tag">Make a Difference</span>
+      <h2 class="section-title">Your generosity takes a child further</h2>
+      <p>Every rupee goes directly towards education, nutrition, or skill building. No child should have to give up on their dreams for want of resources.</p>
+      <div class="donate-amounts">
+        <button class="amt-btn" onclick="selectAmt(this)">₹500</button>
+        <button class="amt-btn active" onclick="selectAmt(this)">₹1,000</button>
+        <button class="amt-btn" onclick="selectAmt(this)">₹2,500</button>
+        <button class="amt-btn" onclick="selectAmt(this)">₹5,000</button>
+        <button class="amt-btn" onclick="selectAmt(this)">Custom</button>
+      </div>
+      <div class="donate-cta-row">
+        <button class="btn-donate" onclick="handleDonate()">Donate Once 💛</button>
+        <button class="btn-donate" style="background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.5)" onclick="handleDonate()">Monthly Giving 🌿</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <span class="tag">Get in Touch</span>
+        <div class="contact-info">
+          <h3>We'd love to hear from you</h3>
+          <p>Whether you want to partner, volunteer, donate, or simply learn more — reach out and we'll respond within 48 hours.</p>
+        </div>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon" style="background:rgba(29,111,164,.12)">📍</div>
+            <div>
+              <h4>Office</h4>
+              <p>NayePankh Foundation, Greater Noida, Uttar Pradesh, India – 201310</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon" style="background:rgba(45,176,124,.12)">📧</div>
+            <div>
+              <h4>Email</h4>
+              <p>info@nayepankh.org</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon" style="background:rgba(245,166,35,.12)">📞</div>
+            <div>
+              <h4>Phone</h4>
+              <p>+91 98765 43210</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon" style="background:rgba(155,89,182,.12)">🕐</div>
+            <div>
+              <h4>Hours</h4>
+              <p>Mon – Sat, 9:00 AM – 6:00 PM IST</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="contact-form">
+          <h3>Send a message</h3>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Name</label>
+              <input type="text" placeholder="Your name" />
+            </div>
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" placeholder="you@email.com" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Subject</label>
+            <input type="text" placeholder="How can we help?" />
+          </div>
+          <div class="form-field">
+            <label>Message</label>
+            <textarea style="min-height:130px" placeholder="Write your message here…"></textarea>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="handleContact(event)">
+            Send Message →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="color:#fff">
+          <div class="logo-icon">🪶</div>
+          NayePankh Foundation
+        </div>
+        <p>Spreading wings of hope across India since 2016. A registered non-profit committed to lasting change through education, health, and opportunity.</p>
+        <div class="footer-social">
+          <div class="social-btn" title="Facebook">📘</div>
+          <div class="social-btn" title="Instagram">📸</div>
+          <div class="social-btn" title="Twitter/X">🐦</div>
+          <div class="social-btn" title="YouTube">▶️</div>
+          <div class="social-btn" title="LinkedIn">💼</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Programmes</h4>
+        <ul>
+          <li><a href="#">Shiksha Daan</a></li>
+          <li><a href="#">HunarGhar</a></li>
+          <li><a href="#">Swasth Bharat</a></li>
+          <li><a href="#">HaritBhumi</a></li>
+          <li><a href="#">Shakti Setu</a></li>
+          <li><a href="#">UdanArts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Organisation</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Annual Reports</a></li>
+          <li><a href="#">Press & Media</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="#donate">Donate</a></li>
+          <li><a href="#volunteer">Volunteer</a></li>
+          <li><a href="#">Corporate CSR</a></li>
+          <li><a href="#">Partner with Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 NayePankh Foundation. All rights reserved. Reg. No. 80G/12A</span>
+      <span>Built with 💛 for a better India · <a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<script>
+  /* ── PARTICLES ─────────────────────────────── */
+  const particlesEl = document.getElementById('particles');
+  const colors = ['#F5A623','#2E9CCA','#2DB07C','#ffffff','#9B59B6'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 6 + Math.random() * 18;
+    p.style.cssText = `
+      width:${size}px;height:${size}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      left:${Math.random()*100}%;
+      animation-duration:${10+Math.random()*16}s;
+      animation-delay:${-Math.random()*12}s;
+    `;
+    particlesEl.appendChild(p);
+  }
+
+  /* ── DARK MODE ─────────────────────────────── */
+  const themeBtn = document.getElementById('themeBtn');
+  let dark = false;
+  themeBtn.addEventListener('click', () => {
+    dark = !dark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    themeBtn.textContent = dark ? '☀️' : '🌙';
+  });
+
+  /* ── MOBILE MENU ───────────────────────────── */
+  const ham = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  ham.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  /* ── SCROLL REVEAL ─────────────────────────── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── BACK TO TOP ───────────────────────────── */
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('show', window.scrollY > 400);
+  });
+
+  /* ── DONATE AMOUNT ─────────────────────────── */
+  function selectAmt(btn) {
+    document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  /* ── FORM HANDLERS ─────────────────────────── */
+  function handleVolunteer(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = '✅ Application Submitted!';
+    btn.style.background = '#2DB07C';
+    setTimeout(() => { btn.textContent = 'Submit Application ✦'; btn.style.background = ''; }, 3500);
+  }
+  function handleContact(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = '✅ Message Sent!';
+    setTimeout(() => { btn.textContent = 'Send Message →'; }, 3500);
+  }
+  function handleDonate() {
+    const amt = document.querySelector('.amt-btn.active')?.textContent || '₹1,000';
+    alert(`Thank you for choosing to donate ${amt}!\n\nYou will be redirected to the secure payment gateway.`);
+  }
+
+  /* ── COUNTER ANIMATION ─────────────────────── */
+  function animateCounter(el, target, suffix='') {
+    let current = 0;
+    const step = target / 60;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.floor(current).toLocaleString('en-IN') + suffix;
+      if (current >= target) clearInterval(timer);
+    }, 25);
+  }
+  const impactObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.impact-num').forEach(num => {
+          const raw = num.textContent.replace(/[^0-9]/g,'');
+          const suffix = num.textContent.replace(/[0-9,]/g,'');
+          animateCounter(num, parseInt(raw), suffix);
+        });
+        impactObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: .2 });
+  const impactSection = document.getElementById('impact');
+  if (impactSection) impactObs.observe(impactSection);
+</script>
+</body>
+</html>
